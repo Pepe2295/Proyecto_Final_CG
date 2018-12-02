@@ -8,12 +8,11 @@
 #   pragma comment( lib, "legacy_stdio_definitions.lib" )
 #endif
 
-//hola
 //	Prototipos de funciones
-void DibujaEjes(void);
+
 void mueble_buro(void);
 void mueble_armario(void);
-void casainferior(void);
+void edificio(void);
 void casasuperior(void);
 void puertas(const GLuint &t1);
 void cocina(void);
@@ -570,29 +569,28 @@ void display ( void )   // Creamos la funcion donde se dibuja
 			
 			glPushMatrix(); //Creamos cielo
 				glDisable(GL_LIGHTING);
-				glTranslatef(0, 574, 0);
-				glScalef(1600, 1150, 1600);
-				
+				glTranslatef(0,74,0);
+				glScalef(600, 150, 600);
 				figures.skybox(0, 0, cielo_superior.GLindex, pasto.GLindex);
-				//glEnable(GL_LIGHTING);
+				glEnable(GL_LIGHTING);
+			glDisable(GL_COLOR_MATERIAL);
 			glPopMatrix();
 			//glEnable(GL_LIGHTING);
-			//glDisable(GL_COLOR_MATERIAL);
+			
 
 			glPushMatrix();
 				glDisable(GL_COLOR_MATERIAL);
 			//	cocina();
-		//		comedor();
-		//		sala();
-		//		estudio();
-		//		recividor();
-		//		cuarto1();
+			//	comedor();
+			//	sala();
+			//	estudio();
+			//	recividor();
+			//	cuarto1();
 				glPushMatrix();			
-				casainferior();
-		//		casasuperior();
+				edificio();
+				//casasuperior();
 				alberca();
-		//		animacion_television();
-				DibujaEjes();
+			//	animacion_television();
 				glEnable(GL_COLOR_MATERIAL);
 			glPopMatrix();
 
@@ -606,47 +604,6 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 	glutSwapBuffers();
 }
-
-void DibujaEjes()
-{
-	glBegin(GL_LINES);
-	//Eje X
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-10.0f, 0.0f, 0.0f);
-	glVertex3f(100.0f, 0.0f, 0.0f);
-
-	//Eje Y
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, -10.0f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-
-	//Eje Z
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, -10.0f);
-	glVertex3f(0.0f, 0.0f, 100.0f);
-	glEnd();
-
-	glPointSize(10.0f);
-
-	glBegin(GL_POINTS);
-	//"Flecha" eje X
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(100.0f, 0.0f, 0.0f);
-
-	//"Flecha" eje Y
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 100.0f, 0.0f);
-
-	//"Flecha" eje Z
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(0.0f, 0.0f, 100.0f);
-	glEnd();
-
-	glPointSize(1.0f);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-}
-
 
 void animacion()
 {
@@ -681,7 +638,7 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 
 	// Tipo de Vista
 	
-	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 1600);
+	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.04, 600);
 
 	glMatrixMode(GL_MODELVIEW);							// Seleccionamos Modelview Matrix
 	glLoadIdentity();
@@ -882,218 +839,112 @@ void mueble_armario(void)
 	glColor3f(1,1,1);
 }
 
-void casainferior(void)
+void edificio(void)
 
-{
-glPushMatrix();
+{glScalef(5, 5, 5);
+	glPushMatrix();
 	glEnable(GL_COLOR_MATERIAL);
 	
-
-	glPushMatrix();
-
+	
+	
 	glTranslatef(0, 0, 0);
-	figures.muro(31, 25, 0.1, maderablanca.GLindex);
-		
+	glPushMatrix();//edificio t
+
 		glPushMatrix();//1
-		
-		glTranslatef(31, 0, 0);
-		figures.muro(6, 25, 0.1, maderablanca.GLindex); //puertas de cristal
-
-			glTranslatef(6, 0, 0);
-			figures.muro(50.5, 25, 0.1, maderablanca.GLindex); //resto del pasillo externo
+		figures.muro(3.1, 2.5, 0.02, maderablanca.GLindex);
 			
+			glTranslatef(3.1, 0, 0);
+			figures.muro(0.6, 2.5, 0.02, maderablanca.GLindex); //puertas de cristal
+
+				glTranslatef(0.6, 0, 0);
+				figures.muro(5.05, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
 		glPopMatrix();//1
-			
-		glPushMatrix();//2
-				glTranslatef(87.5, 0, 0);
-				glRotatef(-90, 0, 1, 0);
-				figures.muro(5, 25, 0.1, maderablanca.GLindex);//entrada pasillo baños
-		
-					glTranslatef(10, 0, 0);
-					figures.muro(5, 25, 0.1, maderablanca.GLindex);//entrada pasillo baños
 
-						glTranslatef(5, 0, 0);
-						glRotatef(-90,0,1,0);
-						figures.muro(87.5, 25, 0.1, maderablanca.GLindex); //resto del pasillo externo
+		glPushMatrix();//2
+			glTranslatef(8.75, 0, 0);
+			glRotatef(-90, 0, 1, 0);
+			figures.muro(0.5, 2.5, 0.02, maderablanca.GLindex);//entrada pasillo baños
+
+				glTranslatef(1.0, 0, 0);
+				figures.muro(0.5, 2.5, 0.02, maderablanca.GLindex);//entrada pasillo baños
+
+					glTranslatef(0.5, 0, 0);
+					glRotatef(-90, 0, 1, 0);
+					figures.muro(2.4, 2.5, 0.02, maderablanca.GLindex); //pasillo externo
+
+					glTranslatef(2.4, 0, 0);
+					figures.muro(1, 2.5, 0.02, maderablanca.GLindex); //puertas de cristal
+
+					glTranslatef(1, 0, 0);
+					figures.muro(5.35, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
 		glPopMatrix();//2
 
 		glPushMatrix();//3
-			glTranslatef(87.5, 0, 5);
-			figures.muro(7, 25, 0.1, maderablanca.GLindex);//pasillo baños
 
-			glRotatef(-180, 0, 1, 0);
-			glTranslatef(-7, 0, -5);
-			figures.muro(7, 25, 0.1, maderablanca.GLindex);//pasillo baños
+		glTranslatef(8.75, 0, 0.5);
+		figures.muro(0.7, 2.5, 0.02, maderablanca.GLindex);//pasillo baños
+
+		glRotatef(-180, 0, 1, 0);
+		glTranslatef(-0.7, 0, -0.5);
+		figures.muro(0.7, 2.5, 0.02, maderablanca.GLindex);//pasillo baños
 
 		glPopMatrix();//3
 
-	glPopMatrix();
+	glPopMatrix();//edificio t
 
 
+	glPushMatrix();//edificio s
+		
+		glTranslatef(9.45, 0, 0);
+		
+			glPushMatrix();//1
+			figures.muro(3.2, 2.5, 0.02, maderablanca.GLindex);
 
-	//pilares
-		glPushMatrix();
-			figures.u_cilindro(0.25 * 5, 3 * 5, 20, chimeneaExt.GLindex); //A1
-		glPopMatrix();
+				glTranslatef(3.2, 0, 0);
+				glRotatef(-90, 0, 1, 0);
+				figures.muro(1.5, 2.5, 0.02, maderablanca.GLindex); //puertas de cristal
+
+					glTranslatef(1.5, 0, 0);
+					glRotatef(-90, 0, 1, 0);
+					figures.muro(1.1, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
+						glTranslatef(1.1, 0, 0);
+						glRotatef(90, 0, 1, 0);
+						figures.muro(1.2, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
+						glTranslatef(1.2, 0, 0);
+						glRotatef(-90, 0, 1, 0);
+						figures.muro(0.7, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
+						glTranslatef(0.7, 0, 0);
+						glRotatef(90, 0, 1, 0);
+						figures.muro(4.6, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+
+						glTranslatef(4.6, 0, 0);
+						glRotatef(-90, 0, 1, 0);
+						figures.muro(1.4, 2.5, 0.02, madera.GLindex); //resto del pasillo externo
+			glPopMatrix();//1
+
+			glPushMatrix();//2
+
+				glTranslatef(0, 0, 7.3);
+				glRotatef(90, 0, 1, 0);
+				figures.muro(6.3, 2.5, 0.02, maderablanca.GLindex);//entrada pasillo baños
+
+				glTranslatef(6.8, 0, 0);
+				figures.muro(0.5, 2.5, 0.02, maderablanca.GLindex);//entrada pasillo baños
+
+			glPopMatrix();//2
 
 
-	glPopMatrix();
-
-		glPushMatrix();
-			glTranslatef(-0.75, -0.15 * 5, -0.75);
-			figures.muro(10.8 * 5, 0.15 * 5, 22.25 * 5, madera.GLindex);//piso
-		glPopMatrix();
-
-
+	glPopMatrix();//edificio s
 
 	glEnable(GL_COLOR_MATERIAL);
 
-glPopMatrix();
-
-
-}
-
-
-void casasuperior(void)
-
-{
-	glPushMatrix();
-	glDisable(GL_COLOR_MATERIAL);
-		glTranslatef(0, 15 + 1.5, 0);
-
-		glPushMatrix();//piso 
-
-		glPushMatrix();
-		//techo plant abaja
-		glTranslatef(0, 0, 2.86 * 5);
-		figures.muro(10.5 * 5, 0.15 * 5, 5 * 5, cuarzo.GLindex);
-		glTranslatef(1 * 5, 0, 5 * 5);
-		figures.muro(6.94 * 5, 0.15 * 5, 3.7 * 5, cuarzo.GLindex);
-		glTranslatef(-1 * 5, 0, 3.7 * 5);
-		figures.muro(6.5 * 5, 0.15 * 5, 4 * 5, cuarzo.GLindex);
-		glTranslatef(6.5 * 5, 0, -1.35 * 5);
-		figures.muro(4 * 5, 0.15 * 5, 5.36 * 5, cuarzo.GLindex);
-		glPopMatrix();
-
-
-
-
-		glPopMatrix();
-
-		glPushMatrix();
-		glTranslatef(0, 0, 2.86 * 5);
-		//A				
-		glPushMatrix();
-		//glTranslatef(0, 0, 0 * 5);
-		figures.muro(10.5 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//2 A-H
-		figures.muro(0.15 * 5, 3 * 5, 5 * 5, cuarzo.GLindex);//A 2-4
-
-		glTranslatef(0 * 5, 0, 2.06 * 5);
-		figures.muro(1 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//A 2.5
-
-		glTranslatef(0 * 5, 0, 1.07 * 5);
-		figures.muro(5.3 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//3 A-E
-
-		glTranslatef(0 * 5, 0, 1.88 * 5);
-		figures.muro(4.3 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//4 A-E
-
-		glTranslatef(0 * 5, 0, 3.7 * 5);
-		figures.muro(6.5 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//6 A-F
-		figures.muro(0.15 * 5, 3 * 5, 4 * 5, cuarzo.GLindex);//A 6-9
-
-		glTranslatef(0 * 5, 0, 1.25 * 5);
-		figures.muro(0.75 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//6.3 A
-
-		glTranslatef(0 * 5, 0, 0.75 * 5);
-		figures.muro(0.75 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//7 A
-
-		glTranslatef(0 * 5, 0, 2 * 5);
-		figures.muro(6.5 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex);//9 A
-		glPopMatrix();
-
-		glPushMatrix();
-
-		glTranslatef(1.45 * 5, 0, 0 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 1.5 * 5, cuarzo.GLindex);//B 2-2.5
-
-		glTranslatef(-0.45 * 5, 0, 5 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 3.7 * 5, cuarzo.GLindex);//B 4-6
-
-		glPopMatrix();
-
-		glPushMatrix();
-
-		glTranslatef(2.93 * 5, 0, 0 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 2.06 * 5, cuarzo.GLindex);//D 2-3
-
-		glTranslatef(-0.8 * 5, 0, 1.06 * 5);
-		figures.muro(0.8 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //D 2.3
-
-		glTranslatef(0 * 5, 0, 0.85 * 5);
-		figures.muro(0.8 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //D 2.5
-
-		glTranslatef(-0.13 * 5, 0, 1.22 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 0.86 * 5, cuarzo.GLindex); //C3
-
-		glTranslatef(1 * 5, 0, 6.81 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 2.75 * 5, cuarzo.GLindex); //C 6-9
-
-		glPopMatrix();
-
-
-		//E
-		glPushMatrix();
-
-		glTranslatef(5.3 * 5, 0, 0 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 2.06 * 5, cuarzo.GLindex); //E 2-3
-
-		glTranslatef(-0.65 * 5, 0, 2.06 * 5);
-		figures.muro(0.8 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //D-E 2.5
-
-		glTranslatef(1.45, 0, 1.22 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 4.56 * 5, cuarzo.GLindex); //E 3-6
-		glPopMatrix();
-
-		//F
-		glPushMatrix();
-		glTranslatef(6.5 * 5, 0, 5 * 5);
-		figures.muro(4 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //4 F-H
-
-		glTranslatef(1.5 * 5, 0, 2.25 * 5);
-		figures.muro(2.5 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //5 G-H
-
-		glTranslatef(-1.5 * 5, 0, 3.1 * 5);
-		figures.muro(1 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //7 G
-
-		glTranslatef(3 * 5, 0, 0 * 5);
-		figures.muro(1 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //7 G
-
-		glTranslatef(-3 * 5, 0, -0.75 * 5);
-		figures.muro(0.15 * 5, 3 * 5, 3 * 5, cuarzo.GLindex); //6.5G
-
-		glTranslatef(0 * 5, 0, 3 * 5);
-		figures.muro(4 * 5, 3 * 5, 0.15 * 5, cuarzo.GLindex); //9G
-
-		glPopMatrix();
-		//techo
-
-		glPushMatrix();
-		glTranslatef(0, 15, 0);
-		figures.muro(10.65 * 5, 0.15 * 5, 5.15 * 5, cuarzo.GLindex);
-
-		glTranslatef(1 * 5, 0, 5 * 5);
-		figures.muro(9.65 * 5, 0.15 * 5, 3.85 * 5, cuarzo.GLindex);
-
-		glTranslatef(-1 * 5, 0, 3.7 * 5);
-		figures.muro(10.65 * 5, 0.15 * 5, 4.15 * 5, cuarzo.GLindex);
-
-		glPopMatrix();
-
-
-
-		glPopMatrix();
-		glEnable(GL_COLOR_MATERIAL);
 	glPopMatrix();
+
 }
 
 
@@ -1589,6 +1440,7 @@ void lavabo(void)
 void alberca(void) {
 
 	glPushMatrix(); //alberca
+	
 	glTranslatef(100, -4.7, 100);
 	glScalef(3.2, 3.2, 3.2);
 
@@ -1616,7 +1468,6 @@ void alberca(void) {
 		glTranslatef(0, 3.8, 0);
 		figures.l_prisma_escalera_alberca(metal_cromo.GLindex, chimeneaExt.GLindex);
 		glPopMatrix();
-
 	glPopMatrix(); //alberca
 
 
