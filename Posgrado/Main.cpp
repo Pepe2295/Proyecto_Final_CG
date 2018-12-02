@@ -8,6 +8,7 @@
 #   pragma comment( lib, "legacy_stdio_definitions.lib" )
 #endif
 
+//hola
 //	Prototipos de funciones
 void DibujaEjes(void);
 void mueble_buro(void);
